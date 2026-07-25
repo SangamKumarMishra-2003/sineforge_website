@@ -1,0 +1,257 @@
+/* Fade Animations */
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+
+.fade-in {
+
+  animation:
+    fadeIn 0.6s ease forwards;
+
+}
+
+
+
+/* Slide Up */
+
+@keyframes slideUp {
+
+  from {
+
+    opacity:0;
+
+    transform:
+      translateY(40px);
+
+  }
+
+
+  to {
+
+    opacity:1;
+
+    transform:
+      translateY(0);
+
+  }
+
+}
+
+
+.slide-up {
+
+  animation:
+    slideUp 0.7s ease forwards;
+
+}
+
+
+
+/* Slide Left */
+
+@keyframes slideLeft {
+
+  from {
+
+    opacity:0;
+
+    transform:
+      translateX(50px);
+
+  }
+
+
+  to {
+
+    opacity:1;
+
+    transform:
+      translateX(0);
+
+  }
+
+}
+
+
+.slide-left {
+
+ animation:
+   slideLeft 0.7s ease forwards;
+
+}
+
+
+
+/* Slide Right */
+
+@keyframes slideRight {
+
+ from {
+
+  opacity:0;
+
+  transform:
+    translateX(-50px);
+
+ }
+
+
+ to {
+
+  opacity:1;
+
+  transform:
+    translateX(0);
+
+ }
+
+}
+
+
+.slide-right {
+
+ animation:
+   slideRight 0.7s ease forwards;
+
+}
+
+
+
+
+/* Floating Animation */
+
+@keyframes float {
+
+ 0% {
+
+  transform:
+   translateY(0);
+
+ }
+
+
+ 50% {
+
+  transform:
+   translateY(-15px);
+
+ }
+
+
+ 100% {
+
+  transform:
+   translateY(0);
+
+ }
+
+}
+
+
+.float {
+
+ animation:
+  float 4s ease-in-out infinite;
+
+}
+
+
+
+/* Pulse Glow */
+
+@keyframes pulseGlow {
+
+ 0% {
+
+  box-shadow:
+   0 0 0 rgba(6,182,212,0);
+
+ }
+
+
+ 50% {
+
+  box-shadow:
+   0 0 40px rgba(6,182,212,0.4);
+
+ }
+
+
+ 100% {
+
+  box-shadow:
+   0 0 0 rgba(6,182,212,0);
+
+ }
+
+}
+
+
+.glow-pulse {
+
+ animation:
+  pulseGlow 3s infinite;
+
+}
+
+
+
+/* Marquee */
+
+@keyframes marquee {
+
+ from {
+
+  transform:
+   translateX(0);
+
+ }
+
+
+ to {
+
+  transform:
+   translateX(-50%);
+
+ }
+
+}
+
+
+.marquee {
+
+ animation:
+  marquee 20s linear infinite;
+
+}
+
+
+
+/* Reduced Motion */
+
+@media
+(prefers-reduced-motion: reduce) {
+
+ *,
+ *::before,
+ *::after {
+
+  animation-duration:
+   0.01ms !important;
+
+  transition-duration:
+   0.01ms !important;
+
+ }
+
+}
