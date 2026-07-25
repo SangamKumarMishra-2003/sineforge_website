@@ -81,8 +81,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 border-t border-gray-800 pt-8 text-center text-gray-500">
-          © {new Date().getFullYear()} SineForge.
-          All Rights Reserved.
+          <p>© {new Date().getFullYear()} SineForge. All Rights Reserved.</p>
+          <p className="mt-2">Design &amp; developed by Raghudhan pvt ltd</p>
         </div>
       </div>
     </footer>
