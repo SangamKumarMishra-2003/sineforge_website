@@ -1,4 +1,6 @@
 import BlogCard from "@/components/cards/BlogCard";
+import NewsletterForm from "@/components/blog/NewsletterForm";
+import Link from "next/link";
 import { blogs } from "@/data/blogs";
 
 export const metadata = {
@@ -43,9 +45,12 @@ export default function BlogPage() {
               {blogs[0].excerpt}
             </p>
 
-            <button className="mt-8 rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-black transition hover:bg-cyan-400">
+            <Link
+              href={`/blog/${blogs[0].slug}`}
+              className="mt-8 inline-flex rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-black transition hover:bg-cyan-400"
+            >
               Read Article
-            </button>
+            </Link>
           </div>
         )}
 
@@ -74,28 +79,7 @@ export default function BlogPage() {
         </div>
 
         {/* Newsletter */}
-        <div className="mt-24 rounded-3xl border border-cyan-500/20 bg-cyan-500/10 p-10 text-center">
-          <h2 className="text-3xl font-bold">
-            Never Miss an Update
-          </h2>
-
-          <p className="mx-auto mt-4 max-w-2xl text-gray-400">
-            Subscribe to receive tutorials, product updates, industry news,
-            and exclusive learning resources directly in your inbox.
-          </p>
-
-          <div className="mx-auto mt-8 flex max-w-xl flex-col gap-4 sm:flex-row">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 rounded-xl border border-gray-700 bg-black px-5 py-3 outline-none focus:border-cyan-500"
-            />
-
-            <button className="rounded-xl bg-cyan-500 px-8 py-3 font-semibold text-black transition hover:bg-cyan-400">
-              Subscribe
-            </button>
-          </div>
-        </div>
+        <NewsletterForm />
       </section>
     </main>
   );
