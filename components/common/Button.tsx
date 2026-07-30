@@ -57,20 +57,18 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, ButtonHTMLAttributes } from "react";
 import type { Route } from "next";
 import { cn } from "@/lib/utils";
 
 
-interface ButtonProps {
+type ButtonProps = {
   children: ReactNode;
   href?: Route;
   size?: "sm" | "md" | "lg";
   variant?: "primary" | "secondary" | "outline";
   className?: string;
-  type?: "button" | "submit" | "reset";
-  onClick?: () => void;
-}
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 
 export default function Button({
@@ -80,7 +78,8 @@ export default function Button({
   variant = "primary",
   className,
   type = "button",
-  onClick,
+  disabled,
+  ...props
 }: ButtonProps) {
 
 
@@ -117,24 +116,19 @@ export default function Button({
 
 
   if (href) {
-
     return (
-      <Link
-        href={href}
-        className={styles}
-      >
+      <Link href={href} className={styles}>
         {children}
       </Link>
     );
-
   }
-
 
   return (
     <button
       type={type}
-      onClick={onClick}
+      disabled={disabled}
       className={styles}
+      {...props}
     >
       {children}
     </button>
