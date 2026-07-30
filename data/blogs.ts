@@ -19,7 +19,7 @@ export const blogs: BlogPost[] = [
       "Artificial Intelligence is changing software development, healthcare, cybersecurity, and businesses.",
 
     coverImage:
-      "/images/blogs/ai.jpg",
+      "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1400&q=80",
 
     category:
       "AI",
@@ -63,7 +63,7 @@ export const blogs: BlogPost[] = [
       "Learn networking, Linux, ethical hacking, and security fundamentals.",
 
     coverImage:
-      "/images/blogs/security.jpg",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=80",
 
     category:
       "Cyber Security",
@@ -98,7 +98,7 @@ export const blogs: BlogPost[] = [
       "Explore routing, data fetching, performance tuning, and UI patterns for modern Next.js apps.",
 
     coverImage:
-      "https://images.unsplash.com/photo-1517430816045-df4b7de01c08?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80",
 
     category:
       "Programming",
