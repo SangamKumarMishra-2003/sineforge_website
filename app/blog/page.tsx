@@ -55,21 +55,23 @@ export default function BlogPage() {
             Latest Articles
           </h2>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {blogs.map((blog) => (
-              <BlogCard
-                key={blog.slug}
-                slug={blog.slug}
-                title={blog.title}
-                excerpt={blog.excerpt}
-                image={blog.coverImage}
-                author={blog.author.name}
-                category={blog.category}
-                publishedAt={blog.publishedAt}
-                readTime={blog.readingTime ?? ""}
-                featured={blog.featured}
-              />
-            ))}
+          <div className="overflow-hidden">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {blogs.slice(0, 10).map((blog) => (
+                <BlogCard
+                  key={blog.slug}
+                  slug={blog.slug}
+                  title={blog.title}
+                  excerpt={blog.excerpt}
+                  image={blog.coverImage}
+                  author={blog.author.name}
+                  category={blog.category}
+                  publishedAt={blog.publishedAt}
+                  readTime={blog.readingTime ?? ""}
+                  featured={blog.featured}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
