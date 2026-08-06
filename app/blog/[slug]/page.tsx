@@ -1,3 +1,4 @@
+import type { ElementType, ReactNode } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { blogs } from "@/data/blogs";
@@ -23,6 +24,124 @@ export async function generateMetadata({ params }: BlogPageProps) {
     title: `${blog.title} | SineForge`,
     description: blog.excerpt,
   };
+}
+
+function parseInlineMarkdown(text: string) {
+  const parts: Array<string | ReactNode> = [];
+  const boldRegex = /\*\*(.+?)\*\*/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = boldRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      parts.push(text.slice(lastIndex, match.index));
+    }
+    parts.push(
+      <strong key={match.index} className="font-semibold text-white">
+        {match[1]}
+      </strong>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(text.slice(lastIndex));
+  }
+
+  return parts;
+}
+
+function renderMarkdown(content: string) {
+  const lines = content.split("\n");
+  const blocks: Array<{ type: string; value?: string; items?: string[]; level?: number }> = [];
+  let currentParagraph: string[] = [];
+  let currentList: string[] = [];
+
+  const flushParagraph = () => {
+    if (currentParagraph.length > 0) {
+      blocks.push({ type: "paragraph", value: currentParagraph.join(" ") });
+      currentParagraph = [];
+    }
+  };
+
+  const flushList = () => {
+    if (currentList.length > 0) {
+      blocks.push({ type: "list", items: [...currentList] });
+      currentList = [];
+    }
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+
+    if (line === "") {
+      flushParagraph();
+      flushList();
+      continue;
+    }
+
+    const headingMatch = line.match(/^(#{1,6})\s+(.*)$/);
+    if (headingMatch) {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: "heading", level: headingMatch[1].length, value: headingMatch[2] });
+      continue;
+    }
+
+    if (line === "---") {
+      flushParagraph();
+      flushList();
+      blocks.push({ type: "hr" });
+      continue;
+    }
+
+    const listMatch = line.match(/^[-*+]\s+(.*)$/);
+    if (listMatch) {
+      flushParagraph();
+      currentList.push(listMatch[1]);
+      continue;
+    }
+
+    if (currentList.length > 0) {
+      flushList();
+    }
+
+    currentParagraph.push(line);
+  }
+
+  flushParagraph();
+  flushList();
+
+  return blocks.map((block, index) => {
+    if (block.type === "heading") {
+      const Heading = `h${block.level}` as ElementType;
+      return (
+        <Heading key={index} className="text-white">
+          {block.value ? parseInlineMarkdown(block.value) : null}
+        </Heading>
+      );
+    }
+
+    if (block.type === "hr") {
+      return <hr key={index} className="my-8 border-gray-700" />;
+    }
+
+    if (block.type === "list") {
+      return (
+        <ul key={index} className="ml-6 list-disc space-y-2 text-gray-300">
+          {block.items?.map((item, itemIndex) => (
+            <li key={itemIndex}>{parseInlineMarkdown(item)}</li>
+          ))}
+        </ul>
+      );
+    }
+
+    return (
+      <p key={index} className="mb-6 leading-8 text-gray-300">
+        {block.value ? parseInlineMarkdown(block.value) : null}
+      </p>
+    );
+  });
 }
 
 export default async function BlogDetailsPage({
@@ -74,11 +193,7 @@ export default async function BlogDetailsPage({
 
         {/* Content */}
         <div className="prose prose-invert mt-12 max-w-none">
-          {blog.content.split("\n\n").map((paragraph, index) => (
-            <p key={index} className="mb-6 leading-8 text-gray-300">
-              {paragraph}
-            </p>
-          ))}
+          {renderMarkdown(blog.content)}
         </div>
 
         {/* Tags */}
