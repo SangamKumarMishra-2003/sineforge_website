@@ -1,4 +1,5 @@
 import BlogCard from "@/components/cards/BlogCard";
+import FeaturedBlogCarousel from "@/components/cards/FeaturedBlogCarousel";
 import { blogs } from "@/data/blogs";
 
 export const metadata = {
@@ -28,26 +29,7 @@ export default function BlogPage() {
           </p>
         </div>
 
-        {/* Featured Blog */}
-        {blogs.length > 0 && (
-          <div className="mt-20 rounded-3xl border border-gray-800 bg-gray-900/50 p-8">
-            <span className="rounded-full bg-cyan-500 px-3 py-1 text-sm font-medium text-black">
-              Featured
-            </span>
-
-            <h2 className="mt-6 text-4xl font-bold">
-              {blogs[0].title}
-            </h2>
-
-            <p className="mt-4 text-gray-400">
-              {blogs[0].excerpt}
-            </p>
-
-            <button className="mt-8 rounded-xl bg-cyan-500 px-6 py-3 font-semibold text-black transition hover:bg-cyan-400">
-              Read Article
-            </button>
-          </div>
-        )}
+        <FeaturedBlogCarousel blogs={blogs} />
 
         {/* Blog Grid */}
         <div className="mt-20">
