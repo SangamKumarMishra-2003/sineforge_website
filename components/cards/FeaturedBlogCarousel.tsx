@@ -95,18 +95,17 @@ export default function FeaturedBlogCarousel({
         <AnimatePresence mode="wait" custom={direction} initial={false}>
           <motion.article
             key={slides[activeIndex].slug}
-            custom={direction}
-            initial={(slideDirection) => ({
+            initial={{
               opacity: 0,
-              x: slideDirection > 0 ? 110 : -110,
+              x: direction > 0 ? 110 : -110,
               scale: 0.98,
-            })}
+            }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={(slideDirection) => ({
+            exit={{
               opacity: 0,
-              x: slideDirection > 0 ? -110 : 110,
+              x: direction > 0 ? -110 : 110,
               scale: 0.98,
-            })}
+            }}
             transition={{ type: "spring", stiffness: 260, damping: 28, mass: 0.8 }}
             className="rounded-3xl border border-gray-700 bg-[#080c14] p-8 sm:p-12"
           >

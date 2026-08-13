@@ -1178,7 +1178,7 @@ export const blogs: BlogPost[] = [
     id: "2",
 
     title:
-      "How to Start a Cyber Security Career",
+      "How to Start your career with Cyber Security",
 
     slug:
       "cyber-security-career-guide",
