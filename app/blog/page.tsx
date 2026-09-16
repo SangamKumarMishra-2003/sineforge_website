@@ -10,6 +10,31 @@ export const metadata = {
 };
 
 export default function BlogPage() {
+  const toolRows = [
+    [
+      { name: "Claude", logo: "/tool-logos/claude.svg" },
+      { name: "Perplexity", logo: "/tool-logos/perplexity.svg" },
+      { name: "NotebookLM", logo: "/tool-logos/notebooklm.svg" },
+      { name: "Notion AI", logo: "/tool-logos/notion-ai.svg" },
+      { name: "Gamma", logo: "/tool-logos/gamma.svg" },
+    ],
+    [
+      { name: "Canva AI", logo: "/tool-logos/canva-ai.svg" },
+      { name: "Granola", logo: "/tool-logos/granola.svg" },
+      { name: "Fireflies", logo: "/tool-logos/fireflies.svg" },
+      { name: "ElevenLabs", logo: "/tool-logos/elevenlabs.svg" },
+      { name: "Runway", logo: "/tool-logos/runway.svg" },
+      { name: "HeyGen", logo: "/tool-logos/heygen.svg" },
+    ],
+    [
+      { name: "n8n", logo: "/tool-logos/n8n.svg" },
+      { name: "Zapier", logo: "/tool-logos/zapier.svg" },
+      { name: "Lovable", logo: "/tool-logos/lovable.svg" },
+      { name: "Emergent", logo: "/tool-logos/emergent.svg" },
+      { name: "Lyizr", logo: "/tool-logos/lyzr.svg" },
+    ],
+  ];
+
   return (
     <main className="min-h-screen bg-black text-white">
       <section className="container mx-auto px-6 py-20">
@@ -60,21 +85,75 @@ export default function BlogPage() {
             Latest Articles
           </h2>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {blogs.map((blog) => (
-              <BlogCard
-                key={blog.slug}
-                slug={blog.slug}
-                title={blog.title}
-                excerpt={blog.excerpt}
-                image={blog.coverImage}
-                author={blog.author.name}
-                category={blog.category}
-                publishedAt={blog.publishedAt}
-                readTime={blog.readingTime ?? ""}
-                featured={blog.featured}
-              />
+          <div className="relative overflow-visible">
+            <div className="relative z-0 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {blogs.slice(0, 10).map((blog) => (
+                <div
+                  key={blog.slug}
+                  className="relative transition-transform duration-300 hover:z-10"
+                >
+                  <BlogCard
+                    slug={blog.slug}
+                    title={blog.title}
+                    excerpt={
+                      blog.title === "How to Start a Cyber Security Career"
+                        ? `${blog.excerpt} Build skills that employers value.`
+                        : blog.excerpt
+                    }
+                    image={blog.coverImage}
+                    author={blog.author.name}
+                    category={blog.category}
+                    publishedAt={blog.publishedAt}
+                    readTime={
+                      blog.title === "How to Start a Cyber Security Career"
+                        ? "5 min read"
+                        : blog.readingTime ?? ""
+                    }
+                    featured={blog.featured}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Tools Showcase */}
+        <div className="mt-20 rounded-3xl border border-gray-800 bg-gray-900/50 p-8">
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 text-center">
+            <p className="text-sm uppercase tracking-[0.3em] text-cyan-400">
+              Get hands on with AI tools from your first prompt to your first real project.
+            </p>
+
+            <div className="flex flex-col gap-4">
+            {toolRows.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex flex-wrap justify-center gap-3">
+                {row.map((tool) => (
+                  <div
+                    key={tool.name}
+                    className={`group relative flex min-h-[54px] overflow-hidden rounded-[15px] p-px text-left shadow-[0_0_22px_rgba(99,102,241,0.12)] transition-transform duration-300 hover:-translate-y-1 ${
+                      rowIndex === 1
+                        ? "min-w-[9rem] max-w-[11rem]"
+                        : "min-w-[10rem] max-w-[12rem]"
+                    }`}
+                  >
+                    <div className="absolute -inset-[90%] animate-spin bg-[conic-gradient(from_180deg,transparent_0deg,transparent_105deg,#22d3ee_145deg,#8b5cf6_190deg,transparent_240deg,transparent_360deg)] [animation-duration:4s] group-hover:[animation-duration:1.5s]" />
+
+                    <div className="relative flex min-h-[52px] w-full items-center gap-2 rounded-[14px] bg-[#171733] px-3 py-2">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-[10px] bg-white">
+                      <img
+                        src={tool.logo}
+                        alt={`${tool.name} logo`}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+
+                    <p className="text-sm font-semibold text-white">{tool.name}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             ))}
+          </div>
           </div>
         </div>
 
